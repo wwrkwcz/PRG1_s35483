@@ -3,31 +3,37 @@
 
 using namespace std;
 
-bool czy_jest_doskonala(int sprawdzana_liczba) {
-    int suma_dzielnikow = 0;
-    int potencjalny_dzielnik = sqrt(sprawdzana_liczba);
-    while (potencjalny_dzielnik > 1) {
-        if (sprawdzana_liczba % potencjalny_dzielnik == 0) {
-            suma_dzielnikow += potencjalny_dzielnik;
-            int sparowany_dzielnik = sprawdzana_liczba / potencjalny_dzielnik;
-            if (sparowany_dzielnik != potencjalny_dzielnik) {
-                suma_dzielnikow += sparowany_dzielnik;
+bool czyDoskonala(int sprawdzanaLiczba) {
+    int sumaDzielnikow = 0;
+    int dzielnikPetli = sqrt(sprawdzanaLiczba);
+
+    while (dzielnikPetli > 1) {
+        if (sprawdzanaLiczba % dzielnikPetli == 0) {
+            sumaDzielnikow += dzielnikPetli;
+
+            int drugiDzielnik = sprawdzanaLiczba / dzielnikPetli;
+            if (drugiDzielnik != dzielnikPetli) {
+                sumaDzielnikow += drugiDzielnik;
             }
         }
-        potencjalny_dzielnik--;
+
+        dzielnikPetli--;
     }
-    suma_dzielnikow += 1;
-    return suma_dzielnikow == sprawdzana_liczba;
+
+    sumaDzielnikow += 1;
+
+    return sumaDzielnikow == sprawdzanaLiczba;
 }
 
 int main() {
-    int wybor_uzytkownika = 1;
-    while (wybor_uzytkownika == 1) {
-        cout << "Podaj liczbe: ";
-        int sprawdzana_liczba;
-        cin >> sprawdzana_liczba;
+    int wyborUzytkownika = 1;
 
-        if (czy_jest_doskonala(sprawdzana_liczba)) {
+    while (wyborUzytkownika == 1) {
+        cout << "Podaj liczbe: ";
+        int sprawdzanaLiczba;
+        cin >> sprawdzanaLiczba;
+
+        if (czyDoskonala(sprawdzanaLiczba)) {
             cout << "Jest to liczba doskonala" << endl;
         } else {
             cout << "Nie jest to liczba doskonala" << endl;
@@ -37,8 +43,10 @@ int main() {
         cout << "1 - Tak" << endl;
         cout << "2 - Nie" << endl;
         cout << "Decyzja: ";
-        cin >> wybor_uzytkownika;
+
+        cin >> wyborUzytkownika;
         system("cls");
     }
+
     return 0;
 }
