@@ -3,24 +3,27 @@
 
 using namespace std;
 
-int main()
+bool pobierzParametry(const char* nazwaPliku, char& znak, int& ilosc)
 {
-    FILE* plik = fopen("konfiguracja.txt", "r");
+    FILE* plik = fopen(nazwaPliku, "r");
     if (plik == NULL) {
-        cout << "Nie mozna otworzyc pliku konfiguracja.txt" << endl;
-        return 1;
+        return false;
     }
 
+    bool ok = fscanf(plik, "znak=%c\nilosc=%d", &znak, &ilosc) == 2;
+    fclose(plik);
+    return ok;
+}
+
+int main()
+{
     char znak = '*';
     int ilosc = 0;
 
-    if (fscanf(plik, "znak=%c\nilosc=%d", &znak, &ilosc) != 2) {
+    if (!pobierzParametry("konfiguracja.txt", znak, ilosc) || ilosc < 0) {
         cout << "Niepoprawny plik konfiguracja.txt" << endl;
-        fclose(plik);
         return 1;
     }
-
-    fclose(plik);
 
     for (int i = 0; i < ilosc; ++i) {
         cout << znak;
